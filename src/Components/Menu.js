@@ -1,12 +1,16 @@
 import React from 'react';
 
-const Menu = () => {
+const Menu = (props) => {
+  const handleCloseButton = () => {
+    props.toggleMenu();
+  };
+
   return (
     <section className="js-menu app-menu">
       <div className="app-menu-inner bg-light p-2 shadow">
         <header className="d-flex justify-content-between align-items-start mb-4">
           <h2 className="h4 font-weight-light">Menú</h2>
-          <button type="button" className="js-menu-btn close pl-2 pr-2 pb-1">
+          <button onClick={handleCloseButton} type="button" className="js-menu-btn close pl-2 pr-2 pb-1">
             <span aria-hidden="true">&times;</span>
           </button>
         </header>
