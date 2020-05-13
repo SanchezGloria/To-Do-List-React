@@ -6,6 +6,15 @@ const List = (props) => {
 
   // console.log(props.list, 'list');
 
+  const handleNewCard = () => {
+    console.log(props.list.id);
+
+    props.handleAction({
+      action: 'add-new-card',
+      listId: props.list.id,
+    });
+  };
+
   const renderCards = () => {
     return props.list.cards.map((card) => {
       return <Card key={card.id} card={card} />;
@@ -46,7 +55,7 @@ const List = (props) => {
 
   const renderNewCardButton = () => {
     return (
-      <button type="button" className="ml-1 btn btn-primary btn-sm text-white-50" title="Añadir una nueva tarjeta">
+      <button onClick={handleNewCard} type="button" className="ml-1 btn btn-primary btn-sm text-white-50" title="Añadir una nueva tarjeta">
         <span className="fas fa-plus"></span> Añadir otra tarjeta
       </button>
     );

@@ -48,13 +48,24 @@ function App() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleAction = () => {
-    data.board.list.push({
-      id: 'list-' + getNewId(),
-      title: '',
-      cards: [],
-    });
-    console.log(data.board.list);
+  const handleAction = (evAction) => {
+    if (evAction.action === 'add-new-list') {
+      data.board.list.push({
+        id: 'list-' + getNewId(),
+        title: '',
+        cards: [],
+      });
+      console.log(data.board.list);
+    } else if (evAction.action === 'add-new-card') {
+      const listIndex = data.board.list.findIndex((list) => list.id === evAction.listId);
+      // console.log(listIndex);
+      data.board.list[listIndex].cards.push({
+        id: 'card-' + getNewId(),
+        title: 'Nueva tarea',
+        description: '',
+        tags: [],
+      });
+    }
     setData({ ...data });
   };
 

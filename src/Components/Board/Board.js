@@ -6,14 +6,15 @@ const Board = (props) => {
 
   const renderList = () => {
     return props.list.map((list) => {
-      return <List key={list.id} list={list} />;
+      return <List key={list.id} list={list} handleAction={props.handleAction} />;
     });
   };
 
   const handleNewList = (ev) => {
     console.log('hola');
-
-    props.handleAction();
+    props.handleAction({
+      action: 'add-new-list',
+    });
   };
 
   const renderNewListButton = () => {
