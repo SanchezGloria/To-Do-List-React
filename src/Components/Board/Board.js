@@ -1,7 +1,15 @@
 import React from 'react';
 import List from './List';
 
-const Board = () => {
+const Board = (props) => {
+  console.log(props);
+
+  const renderList = () => {
+    return props.list.map((list) => {
+      return <List key={list.id} list={list} />;
+    });
+  };
+
   const renderNewListButton = () => {
     return (
       <div>
@@ -11,12 +19,10 @@ const Board = () => {
       </div>
     );
   };
+
   return (
     <main className="app-board d-flex flex-nowrap">
-      <List />
-      <List />
-      <List />
-      <List />
+      {renderList()}
       {renderNewListButton()}
     </main>
   );

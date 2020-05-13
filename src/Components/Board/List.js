@@ -6,9 +6,11 @@ const List = (props) => {
 
   // console.log(props.list, 'list');
 
-  // const cardElement = props.list.map((card, index) => {
-  //   return <Card key={index} card={card} />;
-  // });
+  const renderCards = () => {
+    return props.list.cards.map((card) => {
+      return <Card key={card.id} card={card} />;
+    });
+  };
 
   const renderInput = () => {
     return <input className="app-list-input form-control form-control-sm" placeholder="Tareas importantes" type="text" value="Backlog" title="Editar el título de la lista" onChange={handleTitle} />;
@@ -64,8 +66,7 @@ const List = (props) => {
             </div>
           </div>
         </form>
-        <Card />
-        <Card />
+        {renderCards()}
         {renderNewCardButton()}
       </div>
     </div>

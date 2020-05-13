@@ -16,23 +16,29 @@ function App() {
     // }
   });
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [filterText, setFilterText] = useState('');
 
   useEffect(() => {
     if (LocalStorage.isValid()) {
       const lsData = LocalStorage.get();
+      setData(lsData);
+      // console.log(lsData);
     } else {
-      api.getDataFromApi().then((data) => {
-        setData(data);
-      }, []);
+      api.getDataFromApi().then(setData);
     }
-  });
+  }, []);
 
   useEffect(() => {
     LocalStorage.set(data);
   });
 
+  const getListData = () => {
+    // console.log(data.board);
+
+    return data.board ? data.board.list : [];
+  };
+
   // const [cards, setCard] = useState([]);
-  const [filterText, setFilterText] = useState('');
 
   const handleFilter = (filterText) => {
     setFilterText(filterText);
@@ -115,7 +121,7 @@ function App() {
   return (
     <div className="App">
       <Header filterText={filterText} toggleMenu={toggleMenu} handleFilter={handleFilter} />
-      <Board />
+      <Board list={getListData()} />
       <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
       <Edit />
       <Edit />

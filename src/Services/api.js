@@ -1,5 +1,5 @@
 const getDataFromApi = () => {
-  return fetch('./api/board/json').then((response) => response.json());
+  return fetch('./api/board.json').then((response) => response.json());
 };
 
 export default {

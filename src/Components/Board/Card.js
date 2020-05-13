@@ -14,19 +14,19 @@ const Card = (props) => {
   // });
 
   const renderTags = () => {
-    return (
-      <div>
-        <span className="badge badge-secondary bg-success mr-1">JS</span>
-        <span className="badge badge-secondary bg-success mr-1">Css</span>
-        <span className="badge badge-secondary bg-success mr-1">Html</span>
-      </div>
-    );
+    return props.card.tags.map((tag) => {
+      return (
+        <span key={tag} className="badge badge-secondary bg-success mr-1">
+          {tag}
+        </span>
+      );
+    });
   };
 
   const renderTitle = () => {
     return (
       <div>
-        <h3 className="h6">Publicar en GitHub Pages</h3>
+        <h3 className="h6">{props.card.title}</h3>
       </div>
     );
   };
