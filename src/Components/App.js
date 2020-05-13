@@ -48,6 +48,19 @@ function App() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleAction = () => {
+    data.board.list.push({
+      id: 'list-' + getNewId(),
+      title: '',
+      cards: [],
+    });
+    console.log(data.board.list);
+    setData({ ...data });
+  };
+
+  const getNewId = () => {
+    return Date.now();
+  };
   // const handleNewList = (data) => {
   //   console.log(data);
   //   const newList = [...data];
@@ -121,7 +134,7 @@ function App() {
   return (
     <div className="App">
       <Header filterText={filterText} toggleMenu={toggleMenu} handleFilter={handleFilter} />
-      <Board list={getListData()} />
+      <Board list={getListData()} handleAction={handleAction} />
       <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
       <Edit />
       <Edit />

@@ -10,10 +10,16 @@ const Board = (props) => {
     });
   };
 
+  const handleNewList = (ev) => {
+    console.log('hola');
+
+    props.handleAction();
+  };
+
   const renderNewListButton = () => {
     return (
       <div>
-        <button type="button" className="btn btn-light btn-outline-primary btn-sm mr-5 shadow-sm" title="Añadir una nueva lista">
+        <button onClick={handleNewList} type="button" className="btn btn-light btn-outline-primary btn-sm mr-5 shadow-sm" title="Añadir una nueva lista">
           <span className="fas fa-plus"></span>
         </button>
       </div>
