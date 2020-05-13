@@ -6,6 +6,7 @@ import Header from './Header';
 import Edit from './Edit';
 // import Landing from './Landing';
 import Menu from './Menu';
+import LocalStorage from '../Services/localStorage';
 import '../assets/scss/main.scss';
 
 function App() {
@@ -17,10 +18,18 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    api.getDataFromApi().then((data) => {
-      setData(data);
-    });
-  }, []);
+    if (LocalStorage.isValid()) {
+      const lsData = LocalStorage.get();
+    } else {
+      api.getDataFromApi().then((data) => {
+        setData(data);
+      }, []);
+    }
+  });
+
+  useEffect(() => {
+    LocalStorage.set(data);
+  });
 
   // const [cards, setCard] = useState([]);
   const [filterText, setFilterText] = useState('');
