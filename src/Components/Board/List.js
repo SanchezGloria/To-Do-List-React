@@ -18,6 +18,18 @@ const List = (props) => {
       listId: props.list.id,
     });
   };
+  const handleMoveListLeft = () => {
+    props.handleAction({
+      action: 'move-list-left',
+      listId: props.list.id,
+    });
+  };
+  const handleMoveListRight = () => {
+    props.handleAction({
+      action: 'move-list-right',
+      listId: props.list.id,
+    });
+  };
 
   const handleNewCard = () => {
     console.log(props.list.id);
@@ -52,7 +64,7 @@ const List = (props) => {
 
   const renderLeftButton = () => {
     return (
-      <button type="button" className="btn btn-light text-muted border shadow-sm app-list-move-left" title="Mover esta lista hacia la izquierda">
+      <button onClick={handleMoveListLeft} type="button" className="btn btn-light text-muted border shadow-sm app-list-left-button" title="Mover esta lista hacia la izquierda">
         <span className="fas fa-arrow-left"></span>
       </button>
     );
@@ -60,7 +72,7 @@ const List = (props) => {
 
   const renderRightButton = () => {
     return (
-      <button type="button" className="btn btn-light text-muted border shadow-sm app-list-move-right" title="Mover esta lista hacia la derecha">
+      <button onClick={handleMoveListRight} type="button" className="btn btn-light text-muted border shadow-sm app-list-right-button" title="Mover esta lista hacia la derecha">
         <span className="fas fa-arrow-right"></span>
       </button>
     );
