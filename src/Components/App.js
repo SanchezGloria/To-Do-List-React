@@ -70,6 +70,9 @@ function App() {
     } else if (evAction.action === 'delete-list') {
       const listIndex = getListIndex(evAction.listId);
       data.board.list.splice(listIndex, 1);
+    } else if (evAction.action === 'modify-list-title') {
+      const listIndex = getListIndex(evAction.listId);
+      data.board.list[listIndex].title = evAction.value;
     }
     setData({ ...data });
   };

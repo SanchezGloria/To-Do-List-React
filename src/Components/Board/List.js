@@ -2,7 +2,13 @@ import React from 'react';
 import Card from './Card';
 
 const List = (props) => {
-  const handleTitle = () => {};
+  const handleTitle = (ev) => {
+    props.handleAction({
+      action: 'modify-list-title',
+      value: ev.currentTarget.value,
+      listId: props.list.id,
+    });
+  };
 
   // console.log(props.list, 'list');
 
