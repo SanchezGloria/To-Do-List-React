@@ -46,6 +46,7 @@ function App() {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    console.log(isMenuOpen);
   };
 
   const handleAction = (evAction) => {
@@ -82,6 +83,9 @@ function App() {
   };
 
   const getListIndex = (id) => {
+    return data.board.list.findIndex((list) => list.id === id);
+  };
+  const getCardIndex = (id) => {
     return data.board.list.findIndex((list) => list.id === id);
   };
   // const handleNewList = (data) => {
@@ -135,23 +139,35 @@ function App() {
   //   return <Landing handleNewList={handleNewList} list={filteredTasks()} card={cards} toggleEdit={toggleEdit} handleNewCard={handleNewCard} handleDeleteList={handleDeleteList} handleInput={handleInput} searchInput={searchInput} />;
   // };
 
-  // const toggleEdit = (props) => {
-  //   console.log(props);
-  //   console.log(apiData[0].cards);
+  const toggleEdit = (props) => {
+    const clickedId = props.match.params.id;
+    // for (const list of data.board.list) {
+    //   for (const card of list.cards) {
+    //     if (card.id === clickedId) {
+    //       return card;
+    //     }
+    //   }
+    debugger;
+    for (let index = 0; index < data.board.list.length; index += 1) {
+      console.log(data.board);
 
-  //   console.log(props.match.params.id);
+      const list = data.board.list[index];
+      const cardFound = list.cards.find((card) => card.id === clickedId);
+      console.log(cardFound);
 
-  //   // // const { resultStore } = this.state;
-
-  //   const clickedId = props.match.params.id;
-  //   const foundTask = apiData[0].cards.find((card) => card.id === clickedId);
-  //   console.log(foundTask);
-
-  //   if (foundTask !== undefined) {
-  //     return <Edit task={foundTask} />;
-  //   } else {
-  //     console.log('No existe');
-  //   }
+      if (cardFound) {
+        return <Edit card={cardFound} />;
+      }
+    }
+  };
+  // console.log(props.match.params.id);
+  // const foundTask = apiData[0].cards.find((card) => card.id === clickedId);
+  // console.log(foundTask);
+  // if (foundTask !== undefined) {
+  //   return <Edit task={foundTask} />;
+  // } else {
+  //   console.log('No existe');
+  // }
   // };
 
   return (
@@ -159,12 +175,12 @@ function App() {
       <Header filterText={filterText} toggleMenu={toggleMenu} handleFilter={handleFilter} />
       <Board list={getListData()} handleAction={handleAction} />
       <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-      <Edit />
-      <Edit />
-      {/* <Switch>
-        <Route exact path="/" render={getLanding} />
+      {/* <Edit />
+      <Edit /> */}
+      <Switch>
+        {/* <Route exact path="/" render={getLanding} /> */}
         <Route path="/edit/:id" render={toggleEdit} />
-      </Switch> */}
+      </Switch>
     </div>
   );
 }

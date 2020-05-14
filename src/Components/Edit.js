@@ -111,13 +111,13 @@ const Edit = (props) => {
   };
 
   return (
-    <div className="app-edit modal d-none" tabIndex="-1">
+    <div className="app-edit modal show" tabIndex="-1">
       <section className="modal-dialog modal-dialog-centered modal-lg">
         <div className="modal-content bg-light shadow border-0">
           <form>
             <div className="modal-header border-bottom-0">
               {renderHeader()}
-              {renderCloseButton()}
+              <Link to="/">{renderCloseButton()}</Link>
             </div>
             <div className="modal-body">
               <div className="row">

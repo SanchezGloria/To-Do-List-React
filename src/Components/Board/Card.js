@@ -58,17 +58,17 @@ const Card = (props) => {
   };
 
   return (
-    <article className="js-card app-card m-1 mb-2 p-2 bg-white rounded-sm app-cursor-pointer shadow-sm" title="Abrir la tarjeta">
-      {/* <Link className="edit" to={`/edit/${props.card.id}`}> */}
-      {renderTags()}
-      {renderTitle()}
-      {renderInfo()}
-      <div className="app-card-btns btn-group-vertical btn-group-sm">
-        {renderUpButton()}
-        {renderDownButton()}
-      </div>
-      {/* </Link> */}
-    </article>
+    <Link className="edit" to={`/edit/${props.card.id}`}>
+      <article className="js-card app-card m-1 mb-2 p-2 bg-white rounded-sm app-cursor-pointer shadow-sm" title="Abrir la tarjeta">
+        {renderTags()}
+        {renderTitle()}
+        {renderInfo()}
+        <div className="app-card-btns btn-group-vertical btn-group-sm">
+          {renderUpButton()}
+          {renderDownButton()}
+        </div>
+      </article>
+    </Link>
   );
 };
 

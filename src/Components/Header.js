@@ -4,6 +4,10 @@ const Header = (props) => {
   const handleInput = (ev) => {
     props.handleInput(ev.currentTarget.value);
   };
+  const toggleMenu = () => {
+    props.toggleMenu();
+  };
+
   const renderFilter = () => {
     return (
       <>
@@ -19,7 +23,7 @@ const Header = (props) => {
 
   const renderMenuButton = () => {
     return (
-      <button type="button" className="js-menu-btn btn btn-primary btn-sm text-white-50" title="Abrir el menú">
+      <button onClick={toggleMenu} type="button" className="js-menu-btn btn btn-primary btn-sm text-white-50" title="Abrir el menú">
         <span className="fas fa-columns"></span>
       </button>
     );

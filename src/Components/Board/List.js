@@ -75,7 +75,7 @@ const List = (props) => {
   };
 
   return (
-    <div className="app-list">
+    <div className="app-list show">
       <div className="p-1 rounded-sm bg-primary shadow">
         <form className="app-list-form align-middle p-1 position-relative">
           {renderInput()}
