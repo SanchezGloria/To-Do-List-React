@@ -57,20 +57,29 @@ function App() {
       });
       console.log(data.board.list);
     } else if (evAction.action === 'add-new-card') {
-      const listIndex = data.board.list.findIndex((list) => list.id === evAction.listId);
-      // console.log(listIndex);
+      const listIndex = getListIndex(evAction.listId);
+      // CENTRALIZO ESTE CÓDIGO REPETIDO EN UNA FUNCIÓN
+      // const listIndex = data.board.list.findIndex((list) => list.id === evAction.listId);
+      // // console.log(listIndex);
       data.board.list[listIndex].cards.push({
         id: 'card-' + getNewId(),
         title: 'Nueva tarea',
         description: '',
         tags: [],
       });
+    } else if (evAction.action === 'delete-list') {
+      const listIndex = getListIndex(evAction.listId);
+      data.board.list.splice(listIndex, 1);
     }
     setData({ ...data });
   };
 
   const getNewId = () => {
     return Date.now();
+  };
+
+  const getListIndex = (id) => {
+    return data.board.list.findIndex((list) => list.id === id);
   };
   // const handleNewList = (data) => {
   //   console.log(data);

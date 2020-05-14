@@ -6,6 +6,13 @@ const List = (props) => {
 
   // console.log(props.list, 'list');
 
+  const handleDeleteList = () => {
+    props.handleAction({
+      action: 'delete-list',
+      listId: props.list.id,
+    });
+  };
+
   const handleNewCard = () => {
     console.log(props.list.id);
 
@@ -22,7 +29,7 @@ const List = (props) => {
   };
 
   const renderInput = () => {
-    return <input className="app-list-input form-control form-control-sm" placeholder="Tareas importantes" type="text" value="Backlog" title="Editar el título de la lista" onChange={handleTitle} />;
+    return <input className="app-list-input form-control form-control-sm" placeholder="Tareas importantes" type="text" value={props.list.title} title="Editar el título de la lista" onChange={handleTitle} />;
   };
 
   const renderEllipsis = () => {
@@ -31,7 +38,7 @@ const List = (props) => {
 
   const renderDeleteButton = () => {
     return (
-      <button type="button" className="btn btn-light text-muted border shadow-sm" title="Borrar esta tarjeta">
+      <button onClick={handleDeleteList} type="button" className="btn btn-light text-muted border shadow-sm" title="Borrar esta tarjeta">
         <span className="fas fa-trash-alt"></span>
       </button>
     );
