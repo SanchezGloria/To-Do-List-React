@@ -74,6 +74,11 @@ function App() {
     } else if (evAction.action === 'modify-list-title') {
       const listIndex = getListIndex(evAction.listId);
       data.board.list[listIndex].title = evAction.value;
+    } else if (evAction.action === 'delete-card') {
+      debugger;
+      const listIndex = getListIndex(evAction.listId);
+      const cardIndex = data.board.list[listIndex].cards.findIndex((card) => card.id === evAction.cardId);
+      data.board.list[listIndex].cards.splice(cardIndex, 1);
     }
     setData({ ...data });
   };
@@ -85,19 +90,8 @@ function App() {
   const getListIndex = (id) => {
     return data.board.list.findIndex((list) => list.id === id);
   };
-  const getCardIndex = (id) => {
-    return data.board.list.findIndex((list) => list.id === id);
-  };
-  // const handleNewList = (data) => {
-  //   console.log(data);
-  //   const newList = [...data];
-  //   newList.push({ title: '', cards: [] });
-  //   setData(newList);
-  // };
-  // const handleDeleteList = (id) => {
-  //   const prevList = [...data];
-  //   prevList.splice(id, 1);
-  //   setData(prevList);
+  // const getCardIndex = (id) => {
+  //   return data.board.list.findIndex((list) => list.id === id);
   // };
 
   // const handleInput = (value) => {
@@ -121,20 +115,6 @@ function App() {
   //   // return filteredTasks;
   // };
 
-  // const handleNewCard = (id) => {
-  //   // const newCard = [...cards];
-  //   // newCard.push({ id: '', title: '', description: '', tags: [] });
-  //   // setCard(newCard);
-  //   // const listmapped = list.map((item) => {
-  //   //   if (item.id === parseInt(id)) {
-  //   //     item.cards.push({ id: '', title: '', description: '', tags: [] });
-  //   //   }
-  //   // });
-  //   // console.log(listmapped);
-  //   // return setList(list);
-  // };
-  // console.log(cards);
-
   // const getLanding = () => {
   //   return <Landing handleNewList={handleNewList} list={filteredTasks()} card={cards} toggleEdit={toggleEdit} handleNewCard={handleNewCard} handleDeleteList={handleDeleteList} handleInput={handleInput} searchInput={searchInput} />;
   // };
@@ -147,16 +127,18 @@ function App() {
     //       return card;
     //     }
     //   }
-    debugger;
+
     for (let index = 0; index < data.board.list.length; index += 1) {
       console.log(data.board);
 
       const list = data.board.list[index];
+      console.log(list);
+
       const cardFound = list.cards.find((card) => card.id === clickedId);
       console.log(cardFound);
 
-      if (cardFound) {
-        return <Edit card={cardFound} />;
+      if (cardFound !== undefined) {
+        return <Edit card={cardFound} handleAction={handleAction} listId={list.id} />;
       }
     }
   };

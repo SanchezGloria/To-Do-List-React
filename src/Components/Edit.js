@@ -12,6 +12,14 @@ const Edit = (props) => {
 
   const handleInput = () => {};
 
+  const handleDeleteCard = () => {
+    props.handleAction({
+      action: 'delete-card',
+      cardId: props.card.id,
+      listId: props.listId,
+    });
+  };
+
   const renderHeader = () => {
     return (
       <h5 className="modal-title d-flex w-100">
@@ -103,9 +111,11 @@ const Edit = (props) => {
         <button type="button" className="btn btn-primary btn-sm mb-2 w-100 text-left">
           <span className="fas fa-share-alt mr-2"></span> Mover
         </button>
-        <button type="button" className="btn btn-primary btn-sm mb-2 w-100 text-left">
-          <span className="fas fa-trash-alt mr-2"></span> Borrar
-        </button>
+        <Link to="/">
+          <button onClick={handleDeleteCard} type="button" className="btn btn-primary btn-sm mb-2 w-100 text-left">
+            <span className="fas fa-trash-alt mr-2"></span> Borrar
+          </button>
+        </Link>
       </>
     );
   };
