@@ -13,6 +13,21 @@ const Card = (props) => {
   //   );
   // });
 
+  const handleMoveCardUp = () => {
+    props.handleAction({
+      action: 'move-card-up',
+      cardId: props.card.id,
+      listId: props.listId,
+    });
+  };
+  const handleMoveCardDown = () => {
+    props.handleAction({
+      action: 'move-card-down',
+      cardId: props.card.id,
+      listId: props.listId,
+    });
+  };
+
   const renderTags = () => {
     return props.card.tags.map((tag) => {
       return (
@@ -43,7 +58,7 @@ const Card = (props) => {
 
   const renderUpButton = () => {
     return (
-      <button type="button" className="btn btn-light text-muted border shadow-sm app-card-move-up" title="Mover esta tarjeta hacia abajo">
+      <button onClick={handleMoveCardUp} type="button" className="btn btn-light text-muted border shadow-sm app-card-up-button" title="Mover esta tarjeta hacia abajo">
         <span className="fas fa-arrow-up"></span>
       </button>
     );
@@ -51,7 +66,7 @@ const Card = (props) => {
 
   const renderDownButton = () => {
     return (
-      <button type="button" className="btn btn-light text-muted border shadow-sm app-card-move-down" title="Mover esta tarjeta hacia arriba">
+      <button onClick={handleMoveCardDown} type="button" className="btn btn-light text-muted border shadow-sm app-card-down-button" title="Mover esta tarjeta hacia arriba">
         <span className="fas fa-arrow-down"></span>
       </button>
     );

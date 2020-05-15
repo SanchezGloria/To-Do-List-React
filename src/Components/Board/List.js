@@ -42,7 +42,7 @@ const List = (props) => {
 
   const renderCards = () => {
     return props.list.cards.map((card) => {
-      return <Card key={card.id} card={card} />;
+      return <Card key={card.id} card={card} handleAction={props.handleAction} listId={props.list.id} />;
     });
   };
 
