@@ -16,7 +16,7 @@ const Header = (props) => {
             <span className="fas fa-search"></span>
           </span>
         </div>
-        <input onChange={handleInput} type="text" className="app-header-search form-control border-left-0" title="Filtrar las tareas" value={props.searchInput} />
+        <input onChange={handleInput} type="text" className="app-header-search form-control border-left-0" title="Filtrar las tareas" value={props.filterText} />
       </>
     );
   };

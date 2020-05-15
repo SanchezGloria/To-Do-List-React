@@ -7,6 +7,7 @@ import Edit from './Edit';
 // import Landing from './Landing';
 import Menu from './Menu';
 import LocalStorage from '../Services/localStorage';
+import State from './State';
 import '../assets/scss/main.scss';
 
 function App() {
@@ -31,17 +32,24 @@ function App() {
   useEffect(() => {
     LocalStorage.set(data);
   });
+  const filteredTasks = () => {
+    console.log(data.board.list);
 
-  const getListData = () => {
-    // console.log(data.board);
+    debugger;
 
-    return data.board ? data.board.list : [];
+    return data.board.list.map((item) => {
+      const newList = { ...item };
+      newList.cards = newList.cards.filter((card) => {
+        return card.title.toUpperCase().includes(filterText.toUpperCase());
+      });
+      return newList;
+    });
   };
 
-  // const [cards, setCard] = useState([]);
+  const getListData = () => {
+    console.log(data.board);
 
-  const handleFilter = (filterText) => {
-    setFilterText(filterText);
+    return data.board ? filteredTasks() : [];
   };
 
   const toggleMenu = () => {
@@ -118,13 +126,22 @@ function App() {
   const getListIndex = (id) => {
     return data.board.list.findIndex((list) => list.id === id);
   };
-  // const getCardIndex = (id) => {
-  //   return data.board.list.findIndex((list) => list.id === id);
-  // };
 
-  // const handleInput = (value) => {
-  //   setSearchInput(value);
-  // };
+  const handleInput = (value) => {
+    setFilterText(value);
+  };
+
+  // if (data.board.list !== undefined) {
+  //   data.board.list.forEach((list) => {
+  //     const newList = { ...list };
+  //     newList.cards.forEach((card) => {
+  //       console.log(card.title);
+  //       return card.title.toUpperCase().includes(filterText.toUpperCase());
+  //     });
+  //     return newList;
+  //   });
+  // }
+  // return filteredTasks;
 
   // const filteredTasks = () => {
   //   for (const item of data) {
@@ -143,19 +160,8 @@ function App() {
   //   // return filteredTasks;
   // };
 
-  // const getLanding = () => {
-  //   return <Landing handleNewList={handleNewList} list={filteredTasks()} card={cards} toggleEdit={toggleEdit} handleNewCard={handleNewCard} handleDeleteList={handleDeleteList} handleInput={handleInput} searchInput={searchInput} />;
-  // };
-
   const toggleEdit = (props) => {
     const clickedId = props.match.params.id;
-    // for (const list of data.board.list) {
-    //   for (const card of list.cards) {
-    //     if (card.id === clickedId) {
-    //       return card;
-    //     }
-    //   }
-
     for (let index = 0; index < data.board.list.length; index += 1) {
       console.log(data.board);
 
@@ -170,25 +176,12 @@ function App() {
       }
     }
   };
-  // console.log(props.match.params.id);
-  // const foundTask = apiData[0].cards.find((card) => card.id === clickedId);
-  // console.log(foundTask);
-  // if (foundTask !== undefined) {
-  //   return <Edit task={foundTask} />;
-  // } else {
-  //   console.log('No existe');
-  // }
-  // };
-
   return (
     <div className="App">
-      <Header filterText={filterText} toggleMenu={toggleMenu} handleFilter={handleFilter} />
+      <Header filterText={filterText} toggleMenu={toggleMenu} handleInput={handleInput} />
       <Board list={getListData()} handleAction={handleAction} />
       <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-      {/* <Edit />
-      <Edit /> */}
       <Switch>
-        {/* <Route exact path="/" render={getLanding} /> */}
         <Route path="/edit/:id" render={toggleEdit} />
       </Switch>
     </div>
