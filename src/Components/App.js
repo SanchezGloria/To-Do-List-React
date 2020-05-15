@@ -98,6 +98,15 @@ function App() {
       const cardIndex = data.board.list[listIndex].cards.findIndex((card) => card.id === evAction.cardId);
       const currentCard = data.board.list[listIndex].cards.splice(cardIndex, 1);
       data.board.list[listIndex].cards.splice(cardIndex + 1, 0, currentCard[0]);
+    } else if (evAction.action === 'modify-card-title') {
+      const listIndex = getListIndex(evAction.listId);
+      const cardIndex = data.board.list[listIndex].cards.findIndex((card) => card.id === evAction.cardId);
+      data.board.list[listIndex].cards[cardIndex].title = evAction.value;
+    } else if (evAction.action === 'modify-card-description') {
+      const listIndex = getListIndex(evAction.listId);
+      const cardIndex = data.board.list[listIndex].cards.findIndex((card) => card.id === evAction.cardId);
+      data.board.list[listIndex].cards[cardIndex].description = evAction.value;
+      console.log(data.board.list[listIndex].cards[cardIndex].description);
     }
     setData({ ...data });
   };

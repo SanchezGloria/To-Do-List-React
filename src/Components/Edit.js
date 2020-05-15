@@ -10,7 +10,22 @@ const Edit = (props) => {
   //   );
   // });
 
-  const handleInput = () => {};
+  const handleInput = (ev) => {
+    props.handleAction({
+      action: 'modify-card-title',
+      value: ev.currentTarget.value,
+      cardId: props.card.id,
+      listId: props.listId,
+    });
+  };
+  const handleIDescription = (ev) => {
+    props.handleAction({
+      action: 'modify-card-description',
+      value: ev.currentTarget.value,
+      cardId: props.card.id,
+      listId: props.listId,
+    });
+  };
 
   const handleDeleteCard = () => {
     props.handleAction({
@@ -25,7 +40,7 @@ const Edit = (props) => {
       <h5 className="modal-title d-flex w-100">
         <span className="fas fa-columns mt-3 mr-2 text-muted"></span>
         <div className="w-100">
-          <input className="app-edit-title form-control mb-0 border-0" placeholder="Filtrar tarjetas" type="text" value="Unificar funcionalidad" onChange={handleInput} />
+          <input className="app-edit-title form-control mb-0 border-0" placeholder="Filtrar tarjetas" type="text" value={props.card.title} onChange={handleInput} />
           <small className="app-edit-subtitle d-block mt-0 text-muted">
             en la lista <strong>Por hacer</strong>
           </small>
@@ -50,7 +65,7 @@ const Edit = (props) => {
         </div>
         <div className="col-11 pl-0 pr-0">
           <h6 className="h6">Descripción</h6>
-          <textarea className="app-edit-textarea" onChange={handleInput} defaultValue="" />
+          <textarea className="app-edit-textarea" onChange={handleIDescription} value={props.card.description} />
         </div>
       </div>
     );
