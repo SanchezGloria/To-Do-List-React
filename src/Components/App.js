@@ -131,35 +131,6 @@ function App() {
     setFilterText(value);
   };
 
-  // if (data.board.list !== undefined) {
-  //   data.board.list.forEach((list) => {
-  //     const newList = { ...list };
-  //     newList.cards.forEach((card) => {
-  //       console.log(card.title);
-  //       return card.title.toUpperCase().includes(filterText.toUpperCase());
-  //     });
-  //     return newList;
-  //   });
-  // }
-  // return filteredTasks;
-
-  // const filteredTasks = () => {
-  //   for (const item of data) {
-  //     const filteredTasks = item.cards.filter((task) => {
-  //       console.log(task.title);
-
-  //       return task.title.toUpperCase().includes(searchInput.toUpperCase());
-  //     });
-  //     return filteredTasks;
-  //   }
-  //   // const filteredTasks = list[0].cards.filter((task) => {
-  //   //   console.log(task.title);
-
-  //   //   return task.title.toUpperCase().includes(searchInput.toUpperCase());
-  //   // });
-  //   // return filteredTasks;
-  // };
-
   const toggleEdit = (props) => {
     const clickedId = props.match.params.id;
     for (let index = 0; index < data.board.list.length; index += 1) {
