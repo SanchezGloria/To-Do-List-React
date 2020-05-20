@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Card = (props) => {
@@ -12,6 +12,23 @@ const Card = (props) => {
   //     </span>
   //   );
   // });
+
+  const handleDragStart = (ev) => {
+    props.handleDragStart({
+      cardId: props.card.id,
+      listId: props.listId,
+      target: ev.target,
+    });
+    console.log('drag starting...');
+  };
+
+  const handleDragEnter = (ev) => {
+    props.handleDragEnter({
+      cardId: props.card.id,
+      listId: props.listId,
+      target: ev.target,
+    });
+  };
 
   const handleMoveCardUp = () => {
     props.handleAction({
@@ -74,7 +91,7 @@ const Card = (props) => {
 
   return (
     <Link className="edit" to={`/edit/${props.card.id}`}>
-      <article className="js-card app-card m-1 mb-2 p-2 bg-white rounded-sm app-cursor-pointer shadow-sm" title="Abrir la tarjeta">
+      <div draggable onDragStart={handleDragStart} onDragEnter={props.dragging ? handleDragEnter : null} className=" js-card app-card m-1 mb-2 p-2 bg-white rounded-sm app-cursor-pointer shadow-sm" title="Abrir la tarjeta">
         {renderTags()}
         {renderTitle()}
         {renderInfo()}
@@ -82,7 +99,7 @@ const Card = (props) => {
           {renderUpButton()}
           {renderDownButton()}
         </div>
-      </article>
+      </div>
     </Link>
   );
 };

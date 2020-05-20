@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import api from '../Services/api';
 import Board from './Board/Board';
 import { Route, Switch } from 'react-router-dom';
@@ -18,6 +18,10 @@ function App() {
   });
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [filterText, setFilterText] = useState('');
+  const dragItem = useRef();
+  // const listOfDragItem = useRef();
+  const dragNode = useRef();
+  const [dragging, setDragging] = useState(false);
 
   useEffect(() => {
     if (LocalStorage.isValid()) {
@@ -35,19 +39,21 @@ function App() {
   const filteredTasks = () => {
     console.log(data.board.list);
 
-    debugger;
+    // debugger;
 
     return data.board.list.map((item) => {
       const newList = { ...item };
+
       newList.cards = newList.cards.filter((card) => {
         return card.title.toUpperCase().includes(filterText.toUpperCase());
       });
+
       return newList;
     });
   };
 
   const getListData = () => {
-    console.log(data.board);
+    // console.log(data.board);
 
     return data.board ? filteredTasks() : [];
   };
@@ -56,6 +62,56 @@ function App() {
     setIsMenuOpen(!isMenuOpen);
     console.log(isMenuOpen);
   };
+
+  const handleDragStart = (evAction) => {
+    const listIndex = getListIndex(evAction.listId);
+    const cardIndex = data.board.list[listIndex].cards.findIndex((card) => card.id === evAction.cardId);
+    dragItem.current = cardIndex;
+    // listOfDragItem.current = listIndex;
+    dragNode.current = evAction.target;
+    dragNode.current.addEventListener('dragend', handleDragEnd);
+    setDragging(true);
+    console.log(listIndex + 'lista' + cardIndex + 'card');
+  };
+
+  const handleDragEnd = () => {
+    console.log('ending drag..');
+    setDragging(false);
+    dragNode.current.removeEventListener('dragend', handleDragEnd);
+    dragItem.current = null;
+    dragNode.current = null;
+    // listOfDragItem.current = null;
+  };
+
+  const handleDragEnter = (evAction) => {
+    const listIndex = getListIndex(evAction.listId);
+    const cardIndex = data.board.list[listIndex].cards.findIndex((card) => card !== undefined && card.id === evAction.cardId);
+    console.log('entering drag', listIndex, cardIndex);
+    const currentItem = dragItem.current;
+    // const currentList = listOfDragItem.current;
+    if (evAction.target !== dragNode.current) {
+      setData((oldData) => {
+        let newData = JSON.parse(JSON.stringify(oldData));
+        console.log(newData.board.list[listIndex].cards[cardIndex]);
+        // console.log(currentList);
+        console.log(currentItem);
+        newData.board.list[listIndex].cards.splice(cardIndex, 0, newData.board.list[listIndex].cards.splice(currentItem, 1)[0]);
+        dragItem.current = cardIndex;
+        return newData;
+      });
+      console.log('TARGET IS NOT THE SAME');
+    }
+  };
+
+  // const getStylesDragging = (evAction) => {
+  //   const listIndex = getListIndex(evAction.listId);
+  //   const cardIndex = data.board.list[listIndex].cards.findIndex((card) => card.id === evAction.cardId);
+  //   dragItem.current = cardIndex;
+  //   const currentItem = dragItem.current;
+  //   if (currentItem === cardIndex) {
+  //     return 'current js-card app-card m-1 mb-2 p-2 bg-white rounded-sm app-cursor-pointer shadow-sm';
+  //   }
+  // };
 
   const handleAction = (evAction) => {
     if (evAction.action === 'add-new-list') {
@@ -150,7 +206,7 @@ function App() {
   return (
     <div className="App">
       <Header filterText={filterText} toggleMenu={toggleMenu} handleInput={handleInput} />
-      <Board list={getListData()} handleAction={handleAction} />
+      <Board list={getListData()} handleAction={handleAction} handleDragStart={handleDragStart} dragging={dragging} handleDragEnter={handleDragEnter} />
       <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
       <Switch>
         <Route path="/edit/:id" render={toggleEdit} />
