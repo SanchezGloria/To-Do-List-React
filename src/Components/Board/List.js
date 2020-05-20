@@ -42,7 +42,7 @@ const List = (props) => {
 
   const renderCards = () => {
     return props.list.cards.map((card) => {
-      return <Card key={card.id} card={card} handleAction={props.handleAction} handleDragStart={props.handleDragStart} getStylesDragging={props.getStylesDragging} dragging={props.dragging} handleDragEnter={props.handleDragEnter} listId={props.list.id} />;
+      return <Card key={card.id} card={card} handleAction={props.handleAction} handleDragStart={props.handleDragStart} dragging={props.dragging} handleDragEnter={props.handleDragEnter} listId={props.list.id} />;
     });
   };
 

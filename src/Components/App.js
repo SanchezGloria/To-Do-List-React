@@ -95,12 +95,7 @@ function App() {
         console.log(newData.board.list[listIndex].cards[cardIndex]);
         // console.log(currentList);
         console.log(currentItem);
-
-        // const currentCard = data.board.list[listIndex].cards.splice(cardIndex, 1);
-        // data.board.list[listIndex].cards.splice(cardIndex - 1, 0, currentCard[0]);
-
         newData.board.list[listIndex].cards.splice(cardIndex, 0, newData.board.list[listIndex].cards.splice(currentItem, 1)[0]);
-        // newData.board.list[listIndex].splice(cardIndex, 0, newData.board.list[currentItem.listIndex].cards.splice(currentItem.cardIndex, 1)[0]);
         dragItem.current = cardIndex;
         return newData;
       });
@@ -108,15 +103,15 @@ function App() {
     }
   };
 
-  const getStylesDragging = (evAction) => {
-    const listIndex = getListIndex(evAction.listId);
-    const cardIndex = data.board.list[listIndex].cards.findIndex((card) => card.id === evAction.cardId);
-    dragItem.current = cardIndex;
-    const currentItem = dragItem.current;
-    if (currentItem === cardIndex) {
-      return 'current js-card app-card m-1 mb-2 p-2 bg-white rounded-sm app-cursor-pointer shadow-sm';
-    }
-  };
+  // const getStylesDragging = (evAction) => {
+  //   const listIndex = getListIndex(evAction.listId);
+  //   const cardIndex = data.board.list[listIndex].cards.findIndex((card) => card.id === evAction.cardId);
+  //   dragItem.current = cardIndex;
+  //   const currentItem = dragItem.current;
+  //   if (currentItem === cardIndex) {
+  //     return 'current js-card app-card m-1 mb-2 p-2 bg-white rounded-sm app-cursor-pointer shadow-sm';
+  //   }
+  // };
 
   const handleAction = (evAction) => {
     if (evAction.action === 'add-new-list') {
@@ -211,7 +206,7 @@ function App() {
   return (
     <div className="App">
       <Header filterText={filterText} toggleMenu={toggleMenu} handleInput={handleInput} />
-      <Board list={getListData()} handleAction={handleAction} handleDragStart={handleDragStart} getStylesDragging={getStylesDragging} dragging={dragging} handleDragEnter={handleDragEnter} />
+      <Board list={getListData()} handleAction={handleAction} handleDragStart={handleDragStart} dragging={dragging} handleDragEnter={handleDragEnter} />
       <Menu isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
       <Switch>
         <Route path="/edit/:id" render={toggleEdit} />

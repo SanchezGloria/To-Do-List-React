@@ -6,7 +6,7 @@ const Board = (props) => {
 
   const renderList = () => {
     return props.list.map((list) => {
-      return <List handleDragStart={props.handleDragStart} key={list.id} list={list} handleAction={props.handleAction} getStylesDragging={props.getStylesDragging} dragging={props.dragging} handleDragEnter={props.handleDragEnter} />;
+      return <List handleDragStart={props.handleDragStart} key={list.id} list={list} handleAction={props.handleAction} dragging={props.dragging} handleDragEnter={props.handleDragEnter} />;
     });
   };
 

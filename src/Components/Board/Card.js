@@ -30,13 +30,6 @@ const Card = (props) => {
     });
   };
 
-  const getStylesDragging = () => {
-    props.getStylesDragging({
-      cardId: props.card.id,
-      listId: props.listId,
-    });
-  };
-
   const handleMoveCardUp = () => {
     props.handleAction({
       action: 'move-card-up',
